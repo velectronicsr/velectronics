@@ -3,16 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V Electronics - System Upgrade</title>
+    <title>V Electronics - Platform Update</title>
     <style>
         :root {
+            /* V Electronics Brand Colors */
             --brand-blue: #004b87;
             --brand-light: #e6f0fa;
-            --text-main: #1d1d1f;
-            --text-secondary: #86868b;
-            --bg-base: #f5f5f7;
-            --glass-bg: rgba(255, 255, 255, 0.7);
-            --glass-border: rgba(255, 255, 255, 0.5);
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
         }
 
         * {
@@ -22,183 +20,112 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
+        /* Smooth, slow-moving gradient background */
         body {
-            background-color: var(--bg-base);
-            color: var(--text-main);
+            background: linear-gradient(-45deg, #f8fafc, #ffffff, #e2e8f0, #ffffff);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text-dark);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
-            position: relative;
             padding: 20px;
         }
 
-        /* --- Advanced Animated Background --- */
-        .ambient-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-            z-index: 0;
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.6;
-            animation: float 20s infinite ease-in-out alternate;
-        }
-
-        .orb-1 {
-            width: 400px;
-            height: 400px;
-            background: #d4e4ff;
-            top: -10%;
-            left: -10%;
-            animation-delay: 0s;
-        }
-
-        .orb-2 {
-            width: 300px;
-            height: 300px;
-            background: #e0f7fa;
-            bottom: -10%;
-            right: -5%;
-            animation-delay: -5s;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(50px, 30px) scale(1.1); }
-            100% { transform: translate(-30px, 50px) scale(0.9); }
-        }
-
-        /* --- Glassmorphism Card (Highly Responsive) --- */
-        .glass-card {
-            position: relative;
-            z-index: 1;
-            background: var(--glass-bg);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--glass-border);
-            border-radius: 30px;
-            padding: clamp(30px, 6vw, 60px); /* Fluid padding */
-            width: 100%;
-            max-width: 550px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.05), inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+        /* Ultra-clean floating card */
+        .maintenance-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: clamp(40px, 8vw, 60px) clamp(30px, 6vw, 50px);
+            box-shadow: 0 20px 40px rgba(0, 75, 135, 0.06), 
+                        inset 0 0 0 1px rgba(255, 255, 255, 1);
             text-align: center;
-            
-            /* Entrance Animation */
+            max-width: 520px;
+            width: 100%;
+            transform: translateY(20px);
             opacity: 0;
-            transform: translateY(30px) scale(0.95);
-            animation: cardEntrance 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: slideUpFade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        @keyframes cardEntrance {
-            to { opacity: 1; transform: translateY(0) scale(1); }
+        @keyframes slideUpFade {
+            to { transform: translateY(0); opacity: 1; }
         }
 
-        /* --- Logo Animations --- */
-        .logo-ring {
-            position: relative;
-            width: clamp(120px, 20vw, 160px); /* Fluid sizing */
-            height: clamp(120px, 20vw, 160px);
-            margin: 0 auto 35px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: #ffffff;
-            box-shadow: 0 10px 30px rgba(0, 75, 135, 0.08);
+        /* Logo with Blend Mode to hide the JPG background */
+        .logo {
+            width: clamp(140px, 25vw, 180px);
+            margin: 0 auto 30px;
+            display: block;
+            mix-blend-mode: multiply; /* This is the magic fix for your JPG */
+            animation: floatLogo 6s ease-in-out infinite;
         }
 
-        .logo-ring::before {
-            content: '';
-            position: absolute;
-            top: -5px; left: -5px; right: -5px; bottom: -5px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, transparent, var(--brand-light), var(--brand-blue), transparent);
-            z-index: -1;
-            animation: spinRing 4s linear infinite;
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
         }
 
-        @keyframes spinRing {
-            100% { transform: rotate(360deg); }
-        }
-
-        .logo-ring img {
-            width: 75%;
-            height: 75%;
-            object-fit: contain;
-            animation: gentlePulse 3s infinite ease-in-out;
-        }
-
-        @keyframes gentlePulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-        }
-
-        /* --- Typography --- */
+        /* Typography */
         h1 {
-            font-size: clamp(1.75rem, 4vw, 2.5rem); /* Fluid typography */
+            font-size: clamp(1.5rem, 5vw, 2rem);
             font-weight: 700;
             color: var(--brand-blue);
-            margin-bottom: 15px;
-            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
         }
 
         p {
-            font-size: clamp(0.95rem, 2vw, 1.1rem);
-            line-height: 1.5;
-            color: var(--text-secondary);
-            margin-bottom: 40px;
-            max-width: 90%;
-            margin-left: auto;
-            margin-right: auto;
+            font-size: clamp(0.95rem, 3vw, 1.05rem);
+            line-height: 1.6;
+            color: var(--text-muted);
+            margin-bottom: 45px;
         }
 
-        /* --- Multi-step Loading Indicator --- */
-        .loader-container {
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 15px;
-            padding: 20px;
-            border: 1px solid rgba(0,0,0,0.03);
+        /* Sleek Installation Loader */
+        .loader-wrapper {
+            width: 100%;
         }
 
         .progress-track {
             width: 100%;
-            height: 6px;
-            background: rgba(0, 75, 135, 0.1);
-            border-radius: 10px;
+            height: 4px;
+            background: var(--brand-light);
+            border-radius: 4px;
             overflow: hidden;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
         }
 
         .progress-fill {
             height: 100%;
             width: 0%;
-            background: linear-gradient(90deg, var(--brand-blue), #00c6ff);
-            border-radius: 10px;
-            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--brand-blue);
+            border-radius: 4px;
+            transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .status-text {
             font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--brand-blue);
-            min-height: 20px; /* Prevents layout jump */
+            font-weight: 500;
+            color: var(--text-muted);
+            min-height: 20px;
         }
 
+        /* Fading animation for text changes */
         .fade-text {
-            animation: textUpdate 0.5s ease-in-out;
+            animation: textFade 0.4s ease-in-out;
         }
 
-        @keyframes textUpdate {
-            0% { opacity: 0; transform: translateY(5px); }
+        @keyframes textFade {
+            0% { opacity: 0; transform: translateY(3px); }
             100% { opacity: 1; transform: translateY(0); }
         }
 
@@ -206,21 +133,14 @@
 </head>
 <body>
 
-    <div class="ambient-bg">
-        <div class="orb orb-1"></div>
-        <div class="orb orb-2"></div>
-    </div>
-
-    <main class="glass-card">
+    <main class="maintenance-card">
         
-        <div class="logo-ring">
-            <img src="assets/VLOGO.jpg" alt="V Electronics">
-        </div>
+        <img src="logo.jpg" alt="V Electronics" class="logo">
 
         <h1>Platform Optimization</h1>
-        <p>We are upgrading our core infrastructure to bring you a faster, more robust experience. Systems will be back online shortly.</p>
+        <p>We're upgrading our core infrastructure to bring you a faster, more robust experience. Systems will be back online shortly.</p>
 
-        <div class="loader-container">
+        <div class="loader-wrapper">
             <div class="progress-track">
                 <div class="progress-fill" id="progress-fill"></div>
             </div>
@@ -230,13 +150,12 @@
     </main>
 
     <script>
-        // Custom loading sequence tailored for V Electronics
         const statusMessages = [
-            "Initializing sequence...",
-            "Synchronizing robotics inventory...",
+            "Initializing update sequence...",
+            "Synchronizing hardware inventory...",
             "Calibrating 3D printing modules...",
-            "Routing circuit pathways...",
-            "Securing payment gateways...",
+            "Securing user session data...",
+            "Optimizing frontend rendering...",
             "Finalizing platform deployment..."
         ];
 
@@ -252,10 +171,8 @@
                 const percentage = ((currentStep + 1) / totalSteps) * 100;
                 progressFill.style.width = `${percentage}%`;
 
-                // Update Text with Animation
+                // Re-trigger CSS animation for text
                 statusMessageEl.classList.remove('fade-text');
-                
-                // Small delay to trigger DOM reflow for CSS animation restart
                 void statusMessageEl.offsetWidth; 
                 
                 statusMessageEl.textContent = statusMessages[currentStep];
@@ -263,18 +180,17 @@
 
                 currentStep++;
                 
-                // Random delay between 1.5s and 3s for a realistic loading feel
+                // Randomize delay to look like real system processing (1.5s to 3s)
                 const nextDelay = Math.random() * 1500 + 1500;
                 setTimeout(updateLoader, nextDelay);
             } else {
-                // Loop back or hold at 100%
                 statusMessageEl.textContent = "Systems ready. Standing by...";
-                // setTimeout(() => location.reload(), 2000); // Optional auto-refresh
+                progressFill.style.background = "#10b981"; // Turns green on completion
             }
         }
 
-        // Start animation after a short delay
-        setTimeout(updateLoader, 1000);
+        // Start animation shortly after load
+        setTimeout(updateLoader, 800);
     </script>
 </body>
 </html>
