@@ -214,7 +214,7 @@
     <main class="glass-card">
         
         <div class="logo-ring">
-            <img src="logo.jpg" alt="V Electronics">
+            <img src="assets/VLOGO.jpg" alt="V Electronics">
         </div>
 
         <h1>Platform Optimization</h1>
